@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        text-ellipser
+    </title>
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+    <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css"></link>
+
+    <script src="../src/text-ellipser.js"></script>
+    <link href="../src/text-ellipser.css"></link>
+    <style>
+        .element {
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="element">sdfgdsfgsd df</div>
+    <div class="element">sdfgdsfgs gdfg</div>
+    <div class="element">asdfsd sdfsdfgdfgf</div>
+    <div class="element">sdfdsfgsdfg dsfghfghgf</div>
+    <script>
+        $(function() {
+            $(".element").textEllipser();
+        });
+    </script>
+</body>
+
+</html>
