@@ -1,30 +1,30 @@
 {
-  "name": "text-ellipser",
-  "license": "MIT",
-  "authors": [
-    "JD-R2 <jon_eldiablo@hotmail.com>"
-  ],
-  "description": "A jump-start for jQuery plugins development.",
-  "keywords": [
-    "jquery",
-    "plugin",
-    "boilerplate",
-    "jquery-plugin",
-    "jquery-boilerplate"
-  ],
-  "main": "src/text-ellipser.js",
-  "dependencies": {
-    "jquery": "2.2.4",
-    "bootstrap": "^3.3.7"
-  },
-  "ignore": [
-    "npm-debug.log",
-    "bower_components",
-    "node_modules",
-    "src",
-    "demo",
-    "test",
-    "/**.*",
-    "/*.md"
-  ]
+    "name": "text-ellipser",
+    "license": "MIT",
+    "authors": [
+        "JD-R2 <jon_eldiablo@hotmail.com>"
+    ],
+    "description": "Set ellipsis to all text inside a element or all the body, and use tooltip with full text.",
+    "keywords": [
+        "jquery",
+        "plugin",
+        "boilerplate",
+        "jquery-plugin",
+        "jquery-boilerplate"
+    ],
+    "main": ["dist/text-ellipser.js", "dist/text-ellipser.min.js"],
+    "dependencies": {
+        "jquery": "2.2.4",
+        "bootstrap": "^3.3.7"
+    },
+    "ignore": [
+        "npm-debug.log",
+        "bower_components",
+        "node_modules",
+        "src",
+        "demo",
+        "test",
+        "/**.*",
+        "/*.md"
+    ]
 }
