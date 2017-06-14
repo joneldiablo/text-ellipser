@@ -11,7 +11,11 @@
     // Create the defaults once
     var pluginName = "textEllipser",
         defaults = {
-            propertyName: "value"
+            timeTaphold: 400,
+            tooltip: true,
+            goover: false,
+            gooverTimeChar: 200,
+            delay: 10000
         };
     // The actual plugin constructor
     function Plugin(element, options) {
@@ -33,18 +37,85 @@
         init: function() {
             var te = this;
             if (!te.element) {
-                te.element = $(body)[0];
+                te.element = $("body")[0];
             }
             $(te.element).contents().filter(function() {
                 return (this.nodeType === 3) && this.nodeValue.match(/\S/);
             }).each(function() {
-                $(this).parent().attr("title",
+                var elem = $(this).parent().attr("title",
                     $(this).text().trim()).css({
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis"
-                }).tooltip();
+                });
+                if (te.settings.tooltip) {
+                    elem.tooltip({
+                        trigger: "manual",
+                        placement: "auto",
+                        viewport: {
+                            selector: "body",
+                            padding: 0
+                        }
+                    });
+                    elem.on("mouseover", mouseover);
+                    elem.on("mouseout blur", mouseout);
 
+                    elem.on("touchstart", function(e) {
+                        var start = new Date();
+                        elem.data("startTaphold", start);
+                        mouseover(e);
+                        setTimeout(function() {
+                            mouseout(e);
+                        }, 3000);
+                    });
+                    elem.on("touchend", function(e) {
+                        var t = te.settings.timeTaphold;
+                        var start = elem.data("startTaphold").getTime();
+                        var end = (new Date()).getTime();
+                        elem.removeData("startTaphold");
+                        if ((end - start) < t) {
+                            e.stopImmediatePropagation();
+                            mouseout(e);
+                        }
+                    });
+
+                    function mouseover(e) {
+                        if (elem.data("timerTooltip")) {
+                            clearTimeout(elem.data("timerTooltip"));
+                        }
+                        var timerTooltip = setTimeout(function() {
+                            elem.tooltip("toggle");
+                            elem.removeData("timerTooltip");
+                        }, 1000);
+                        elem.data("timerTooltip", timerTooltip);
+                    }
+
+                    function mouseout(e) {
+                        setTimeout(function() {
+                            if (elem.data("timerTooltip")) {
+                                clearTimeout(elem.data("timerTooltip"));
+                                elem.removeData("timerTooltip");
+                            }
+                            elem.tooltip("hide");
+                        }, 100);
+                    }
+                }
+                if (te.settings.goover) {
+                    var t = te.settings.gooverTimeChar * elem.text().length
+                    var aux = elem.clone().removeAttr('class').hide().appendTo("body");
+                    var w = aux.width();
+                    aux.remove();
+                    setInterval(toggle, t + 1000 + te.settings.delay);
+                    toggle();
+
+                    function toggle() {
+                        elem.animate({ textIndent: -(w - elem.width() * .8) }, t);
+                        elem.delay(2000);
+                        elem.fadeOut(function() {
+                            elem.css("text-indent", 0);
+                        }).fadeIn();
+                    }
+                }
             });
         },
         help: function() {
@@ -99,6 +170,9 @@
         return toReturn;
     };
     $[pluginName] = function(action) {
+        if (!action) {
+            action = "init";
+        }
         return (new Plugin())[camelCase(action)]();
     };
 })(jQuery, window, document);

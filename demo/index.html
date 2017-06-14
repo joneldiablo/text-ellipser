@@ -16,7 +16,8 @@
     <link href="../src/text-ellipser.css"></link>
     <style>
         .element {
-            width: 40px;
+            width: 60px;
+            margin: 20px;
         }
     </style>
 </head>
@@ -25,10 +26,13 @@
     <div class="element">sdfgdsfgsd df</div>
     <div class="element">sdfgdsfgs gdfg</div>
     <div class="element">asdfsd sdfsdfgdfgf</div>
-    <div class="element">sdfdsfgsdfg dsfghfghgf</div>
+    <div class="element">If a selector is provided, tooltip objects will be delegated to the specified targets. In practice, this is used to enable dynamic HTML content to have tooltips added</div>
     <script>
         $(function() {
-            $(".element").textEllipser();
+            $(".element").textEllipser({
+                tooltip: false,
+                goover: true
+            });
         });
     </script>
 </body>
