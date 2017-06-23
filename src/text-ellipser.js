@@ -101,7 +101,6 @@
 				elem = $(elem);
 			}
 			elem.css("font-size", "");
-			$(window).off("resize", scaleElemEvent);
 			return $(te.element);
 		},
 		goover: function (elem) {
