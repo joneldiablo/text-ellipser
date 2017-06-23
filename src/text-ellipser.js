@@ -156,6 +156,16 @@
 				}, 100);
 			}
 		},
+		resetScale: function (elem) {
+			var te = this;
+			if (!elem) {
+				elem = $(te.element);
+			} else {
+				elem = $(elem);
+			}
+			elem.css("font-size", "");
+			return $(te.element);
+		},
 		help: function () {
 			var funcs = $.map(this, function (elem, i) {
 				if (typeof elem === "function") {
