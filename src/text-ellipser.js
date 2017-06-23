@@ -26,6 +26,13 @@
 			return letter.toUpperCase();
 		});
 	}
+
+	function scaleElemEvent(e) {
+		var te = e.data.te;
+		var elem = e.data.elem
+		te.scale(elem);
+	}
+
 	// Avoid Plugin.prototype conflicts
 	$.extend(Plugin.prototype, {
 		init: function () {
@@ -73,10 +80,29 @@
 			} else {
 				elem = $(elem);
 			}
-			var wText = te.calcWidth(elem);
+			var wText = elem.data("width-text");
+			var fontInit = elem.data("font-size");
+			if (!wText) {
+				wText = te.calcWidth(elem);
+				fontInit = parseInt(elem.css("font-size"));
+				elem.data("width-text", wText);
+				elem.data("font-size", fontInit);
+			}
 			var wElem = elem.width();
-			elem.css({ fontSize: (wElem / wText) * (parseInt(elem.css("font-size")) - .05) });
+			var s = (wElem / wText) > 1 ? 1 : (wElem / wText);
+			elem.css({ fontSize: (s - .05) * fontInit });
 			return true;
+		},
+		resetScale: function (elem) {
+			var te = this;
+			if (!elem) {
+				elem = $(te.element);
+			} else {
+				elem = $(elem);
+			}
+			elem.css("font-size", "");
+			$(window).off("resize", scaleElemEvent);
+			return $(te.element);
 		},
 		goover: function (elem) {
 			var te = this;
@@ -155,16 +181,6 @@
 					elem.tooltip("hide");
 				}, 100);
 			}
-		},
-		resetScale: function (elem) {
-			var te = this;
-			if (!elem) {
-				elem = $(te.element);
-			} else {
-				elem = $(elem);
-			}
-			elem.css("font-size", "");
-			return $(te.element);
 		},
 		help: function () {
 			var funcs = $.map(this, function (elem, i) {

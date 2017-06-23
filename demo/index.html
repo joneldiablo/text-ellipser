@@ -12,11 +12,11 @@
   <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"></link>
   <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet"></link>
 
-  <script src="../src/text-ellipser.js"></script>
-  <link href="../src/text-ellipser.css"></link>
+  <script src="../dist/text-ellipser.min.js"></script>
+  <link href="../dist/text-ellipser.min.css"></link>
   <style>
     .element {
-      width: 60px;
+      width: 10%;
       margin: 20px;
     }
   </style>
@@ -33,6 +33,9 @@
         scale: true
       });
       $("#large").textEllipser("reset-scale").textEllipser("goover");
+      $(window).on("resize", function() {
+        $(".element:not(#large)").textEllipser("scale");
+      });
     });
   </script>
 </body>
