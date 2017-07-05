@@ -102,8 +102,8 @@
 				elem = $(elem);
 			}
 			elem.css("font-size", "");
-			elem.removeData("width-text");
-			elem.removeData("font-size");
+			elem.removeData("widthText");
+			elem.removeData("fontSize");
 			return $(te.element);
 		},
 		goover: function (elem) {
