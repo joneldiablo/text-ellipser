@@ -35,8 +35,9 @@
 
 	// Avoid Plugin.prototype conflicts
 	$.extend(Plugin.prototype, {
-		init: function () {
+		init: function (conf) {
 			var te = this;
+			$.extend(te.settings, conf);
 			if (!te.element) {
 				te.element = $("body")[0];
 			}
@@ -45,10 +46,10 @@
 			}).each(function () {
 				var elem = $(this).parent().attr("title",
 					$(this).text().trim()).css({
-					whiteSpace: "nowrap",
-					overflow: "hidden",
-					textOverflow: "ellipsis"
-				});
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis"
+					});
 				if (te.settings.scale) {
 					te.scale(elem);
 				} else {
@@ -101,6 +102,8 @@
 				elem = $(elem);
 			}
 			elem.css("font-size", "");
+			elem.removeData("width-text");
+			elem.removeData("font-size");
 			return $(te.element);
 		},
 		goover: function (elem) {
@@ -221,13 +224,13 @@
 				return tR;
 			}).get();
 			switch (toReturn.length) {
-			case 0:
-				toReturn = null;
-				break;
-			case 1:
-				toReturn = toReturn[0];
-				break;
-			default:
+				case 0:
+					toReturn = null;
+					break;
+				case 1:
+					toReturn = toReturn[0];
+					break;
+				default:
 			}
 		}
 		return toReturn;
