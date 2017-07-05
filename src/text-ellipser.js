@@ -104,7 +104,6 @@
 			elem.css("font-size", "");
 			elem.removeData("widthText");
 			elem.removeData("fontSize");
-			console.log(elem.data());
 			return $(te.element);
 		},
 		goover: function (elem) {
